@@ -7,6 +7,7 @@ import HomeScreen from './screen/HomeScreen';
 import AboutModal from "./screen/AboutModal";
 import Icon from 'react-native-vector-icons/Ionicons'; 
 import DrawerMenuButton from "./components/DrawerMenuButton";
+import DrawerMenu from "./components/DrawerMenu";
 
 
 
@@ -75,18 +76,9 @@ export default class DrawerScreen extends Component{
                     initialRouteName = 'Home'
                     drawerPosition = 'Left'
                     drawerType = 'back'
-                    drawerContentOptions = {{
-                        activeTintColor: '#fff',
-                        inactiveTintColor : '#d03932',
-                        activeBackgroundColor: '#d03932', 
-                        inactiveBackgroundColor : '#fff',
-                        itemStyle : {
-                            
-                        }                      
-                    }}
-                    drawerStyle = {{
-                        
-                    }}
+                    drawerContent = {( {navigation} ) => (
+                        <DrawerMenu navigation = {navigation}/> //custom Drawer Menu :D
+                    )}
                     >
                     <Drawer.Screen
                         name='Home'
