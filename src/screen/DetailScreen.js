@@ -1,24 +1,55 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Button, TouchableHighlight, Alert } from "react-native";
+import { View, Text, StyleSheet, Button, TouchableHighlight, Alert, Image } from "react-native";
+
+
+class LogoTitle extends Component {
+    render(){
+        const { title } = this.props
+        return (
+            <View style = {{flexDirection : 'row', alignItems : 'center'}}>
+                <Image
+                    style = {{height : 38, width : 38}}
+                    source={require('../assets/notes.png')}
+                />
+                <Text style = {{color : 'white', fontWeight : 'bold'}}>{title}</Text>
+            </View>
+            
+        )
+    }
+}
+
 
 export default class DetailScreen extends Component {
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state = {
-            count : 0
+            count : 0,
+            title : this.props.route.params.title,
         }
     }
 
     componentDidMount = () =>{
-        this.props.navigation.setOptions({
+        const { navigation } = this.props
+        navigation.setOptions({
+            headerTitle: <LogoTitle title={this.state.title}/>,
+            headerTintColor : 'blue',
+            //headerBackTitle : 'Back',
             headerRight : () => (
                 <Button 
-                    title = 'deneme'
+                    title = 'About'
+                    color = 'blue'
                     onPress = {()=> {
-                        this.setState({count : this.state.count + 1 })
+                        navigation.navigate('MyModal')
                     }}
                 />
-            )
+            ),
+            headerStyle : {
+                backgroundColor : 'green' 
+            },
+            headerTitleStyle : {
+                fontWeight : 'bold',
+                color : 'white'
+            }
         })
     }
     render() {
@@ -28,6 +59,7 @@ export default class DetailScreen extends Component {
             <View
                 style={style.container}>
                 <Text>{this.state.count}</Text>
+                <Text>{title}</Text>
                 <Button 
                     title = {'go to home'}
                     onPress={() => { navigate('Home') }} />
